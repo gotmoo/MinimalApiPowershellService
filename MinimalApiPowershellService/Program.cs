@@ -6,6 +6,7 @@ using Microsoft.PowerShell;
 var options = new WebApplicationOptions
 {
     Args = args,
+    // Setting to allow the service to run both in IDE and as service
     ContentRootPath = WindowsServiceHelpers.IsWindowsService()
         ? AppContext.BaseDirectory
         : default
@@ -40,4 +41,5 @@ Write-Output $([DateTime]::Now)
     return string.Join("\n", scriptResponse);
 });
 
+// RunAsync for service.
 await app.RunAsync();
