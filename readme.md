@@ -38,4 +38,5 @@ for this user.
 With the service running you can test it by connecting to 
 http://localhost:5400 from a web browser or a PowerShell 
 command ``Invoke-WebRequest -Uri "http://localhost:5400"``
+
 ![Results from the service running](serviceResults.png)
