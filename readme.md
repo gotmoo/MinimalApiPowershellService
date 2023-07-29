@@ -8,7 +8,7 @@ user and time in the browser, as well as writing this data to a file in
 c:\temp. Windows event logging has been enabled in ``appsettings.json``
 
 It is import to target a specific OS in the configuration. Targeting 
-generic win-64 will not work. At this time, single file publishing also 
+generic win-64 will not allow powershell to work. At this time, single file publishing also 
 does not work.
 
 ### Configure
