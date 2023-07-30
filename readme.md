@@ -13,7 +13,46 @@ does not work.
 
 ### Configure
 The port used by the service is specified in ``appsettings.json``. Note that different ports are configured in ``appsettings.Development.json``.
-In addition, 
+#### Secure access to the API
+With the posted configuration, the service API is only accessible from localhost using http.  If you need the service to 
+be available from other machines on your network, I would recommend preventing eavesdropping by configuring use of an 
+SSL certificate.  
+1. Install the certificate in the Windows Certificate Store using `certmgr.exe` into the Personal store
+2. Get the location and validate the path with this powershell command. Note the location LocalMachine\\**My** and the private key is available:
+
+````
+PS C:\> Get-ChildItem -Path cert:\ -Recurse | Where-Object { $_.Subject -imatch "desk.domain.com" } | Select Subject, HasPrivateKey, PsParentPath
+
+Subject            HasPrivateKey PSParentPath
+-------            ------------- ------------
+CN=desk.domain.com          True Microsoft.PowerShell.Security\Certificate::CurrentUser\My
+````
+
+3. Add the FQDN from the certificate to AllowedHosts in `appsettins.json`:
+
+``"AllowedHosts": "desk.domain.com;localhost"``
+
+4. Add an HTTPS entry:
+
+```
+  "Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "http://localhost:5400"
+      },
+      "Https": {
+        "Url": "https://desk.domain.com:5401",
+        "Certificate": {
+          "Subject": "desk.domain.com",
+          "Store": "My",
+          "Location": "LocalMachine",
+          "AllowInvalid": false
+        }
+      }
+    }
+  }
+
+```
 
 ### Publish
 To publish the project, mark the project as self contained and target 
@@ -40,3 +79,6 @@ http://localhost:5400 from a web browser or a PowerShell
 command ``Invoke-WebRequest -Uri "http://localhost:5400"``
 
 ![Results from the service running](serviceResults.png)
+
+### Troubleshooting
+If the service will not run, check the event log for any errors.
