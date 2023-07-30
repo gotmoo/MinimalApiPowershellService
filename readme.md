@@ -28,7 +28,7 @@ Subject            HasPrivateKey PSParentPath
 CN=desk.domain.com          True Microsoft.PowerShell.Security\Certificate::LocalMachine\My
 ````
 
-3. Add the FQDN from the certificate to AllowedHosts in `appsettins.json`:
+3. Add the FQDN from the certificate to AllowedHosts in `appsettings.json`:
 
 ``"AllowedHosts": "desk.domain.com;localhost"``
 
