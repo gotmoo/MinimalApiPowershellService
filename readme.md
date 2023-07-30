@@ -25,7 +25,7 @@ PS C:\> Get-ChildItem -Path cert:\ -Recurse | Where-Object { $_.Subject -imatch 
 
 Subject            HasPrivateKey PSParentPath
 -------            ------------- ------------
-CN=desk.domain.com          True Microsoft.PowerShell.Security\Certificate::CurrentUser\My
+CN=desk.domain.com          True Microsoft.PowerShell.Security\Certificate::LocalMachine\My
 ````
 
 3. Add the FQDN from the certificate to AllowedHosts in `appsettins.json`:
